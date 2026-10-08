@@ -136,7 +136,7 @@ ${palette
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-zinc-200 dark:border-zinc-800 flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
           <div>
             <h3 className="font-bold text-lg text-zinc-900 dark:text-zinc-100">
               Export Palette
@@ -154,7 +154,7 @@ ${palette
         </div>
 
         {/* Format Selector Tabs */}
-        <div className="p-3 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap gap-1.5">
+        <div className="p-3 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap gap-1.5 shrink-0">
           <button
             onClick={() => setActiveTab('png')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
@@ -232,7 +232,7 @@ ${palette
         </div>
 
         {/* Tab Body */}
-        <div className="p-6 flex-1 overflow-y-auto space-y-4">
+        <div className="p-4 md:p-6 flex-1 overflow-y-auto min-h-0 space-y-4">
           {/* Mini preview bar */}
           <div className="h-14 rounded-xl overflow-hidden flex shadow-inner border border-black/10">
             {palette.map(c => (

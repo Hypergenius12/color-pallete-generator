@@ -43,7 +43,7 @@ export const SavedPalettesModal: React.FC<SavedPalettesModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-zinc-200 dark:border-zinc-800 flex flex-col max-h-[85vh]">
         {/* Header */}
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <Heart className="w-5 h-5 text-rose-500 fill-rose-500" />
             <div>
@@ -66,7 +66,7 @@ export const SavedPalettesModal: React.FC<SavedPalettesModalProps> = ({
         {/* Quick Save Current Palette Bar */}
         <form
           onSubmit={handleSave}
-          className="p-4 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex gap-2 items-center"
+          className="p-4 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex gap-2 items-center shrink-0"
         >
           <div className="flex -space-x-1 overflow-hidden pr-2">
             {currentPalette.map(c => (
@@ -94,7 +94,7 @@ export const SavedPalettesModal: React.FC<SavedPalettesModalProps> = ({
         </form>
 
         {/* List of Saved Palettes */}
-        <div className="p-4 flex-1 overflow-y-auto space-y-3">
+        <div className="p-4 flex-1 overflow-y-auto min-h-0 space-y-3">
           {savedPalettes.length === 0 ? (
             <div className="text-center py-12 text-zinc-400 space-y-2">
               <Heart className="w-8 h-8 mx-auto stroke-1 opacity-50" />

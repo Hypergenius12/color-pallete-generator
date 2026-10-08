@@ -29,7 +29,7 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-zinc-200 dark:border-zinc-800 flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <Command className="w-5 h-5 text-blue-500" />
             <h3 className="font-bold text-lg text-zinc-900 dark:text-zinc-100">
@@ -45,7 +45,7 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({
         </div>
 
         {/* Shortcuts list */}
-        <div className="p-4 divide-y divide-zinc-100 dark:divide-zinc-800 text-xs">
+        <div className="p-4 divide-y divide-zinc-100 dark:divide-zinc-800 text-xs overflow-y-auto min-h-0 flex-1">
           {shortcuts.map((s, idx) => (
             <div key={idx} className="py-2.5 flex items-center justify-between">
               <span className="text-zinc-600 dark:text-zinc-400 font-medium">{s.desc}</span>

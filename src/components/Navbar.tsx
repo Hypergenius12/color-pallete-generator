@@ -61,21 +61,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   savedCount,
 }) => {
   return (
-    <header className="w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-3 md:px-5 py-2.5 flex items-center justify-between gap-2 z-20 shadow-xs">
+    <header className="w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-2.5 md:px-4 py-2 flex items-center justify-between gap-2 z-20 shadow-xs overflow-x-auto no-scrollbar">
       {/* Brand & Spacebar Hint */}
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 font-black text-lg md:text-xl tracking-tight text-zinc-900 dark:text-zinc-100 select-none">
-          <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-pink-500 via-amber-400 to-indigo-600 shadow-sm flex items-center justify-center text-white">
+      <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center gap-2 font-black text-base md:text-xl tracking-tight text-zinc-900 dark:text-zinc-100 select-none">
+          <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-pink-500 via-amber-400 to-indigo-600 shadow-sm flex items-center justify-center text-white shrink-0">
             <span className="text-xs font-black">C</span>
           </div>
-          <span>ChromaCraft</span>
+          <span className="hidden sm:inline">ChromaCraft</span>
         </div>
 
         {/* Spacebar Callout Badge */}
         <div
           onClick={onGenerate}
           title="Click or press Spacebar to generate"
-          className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 text-xs font-medium border border-zinc-200 dark:border-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-750 transition-colors"
+          className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 text-xs font-medium border border-zinc-200 dark:border-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-750 transition-colors shrink-0"
         >
           <span>Press</span>
           <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-[10px] font-mono font-bold shadow-xs">
@@ -86,7 +86,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Middle Controls (History, Color Count, Harmony Mode, Format) */}
-      <div className="flex items-center gap-1.5 md:gap-2">
+      <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
         {/* Undo / Redo */}
         <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 rounded-lg p-0.5 border border-zinc-200 dark:border-zinc-700">
           <button
@@ -214,7 +214,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Right Tools (Visualizer, Contrast, Photo Extract, Saved, Export) */}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1 shrink-0">
         {/* Visualizer Mockups Button */}
         <button
           onClick={onOpenVisualizer}

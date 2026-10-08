@@ -129,7 +129,7 @@ export const ImageExtractorModal: React.FC<ImageExtractorModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden border border-zinc-200 dark:border-zinc-800 flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <ImageIcon className="w-5 h-5 text-purple-500" />
             <div>
@@ -153,7 +153,7 @@ export const ImageExtractorModal: React.FC<ImageExtractorModalProps> = ({
         <canvas ref={canvasRef} className="hidden" />
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto space-y-4">
+        <div className="p-4 md:p-5 overflow-y-auto min-h-0 space-y-4 flex-1">
           {/* Sample Photo Thumbnails */}
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold text-zinc-500">Presets:</span>

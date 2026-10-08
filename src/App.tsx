@@ -328,7 +328,7 @@ export default function App() {
       />
 
       {/* Main Fullscreen Color Columns */}
-      <main className="flex-1 flex flex-col md:flex-row w-full h-[calc(100vh-53px)] overflow-y-auto md:overflow-hidden relative">
+      <main className="flex-1 flex flex-col md:flex-row w-full h-[calc(100vh-53px)] overflow-y-auto md:overflow-hidden relative min-h-0">
         {palette.map((color, idx) => {
           const displayHex = simulateColorBlindness(color.hex, colorBlindness);
 

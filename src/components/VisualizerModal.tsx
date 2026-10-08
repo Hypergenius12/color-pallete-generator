@@ -61,10 +61,10 @@ ${c4}`;
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-150">
       <div className="bg-white dark:bg-zinc-950 rounded-2xl shadow-2xl max-w-5xl w-full overflow-hidden border border-zinc-200 dark:border-zinc-800 flex flex-col h-[90vh]">
         {/* Header */}
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <h3 className="font-bold text-lg text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-indigo-500" />
+        <div className="p-3 md:p-4 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-2 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <h3 className="font-bold text-base md:text-lg text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-indigo-500 shrink-0" />
               Palette Visualizer
             </h3>
 
@@ -73,7 +73,7 @@ ${c4}`;
               {palette.map((c) => (
                 <div
                   key={c.id}
-                  className="w-4 h-4 rounded-full border border-black/10 shadow-sm"
+                  className="w-4 h-4 rounded-full border border-black/10 shadow-sm shrink-0"
                   style={{ backgroundColor: c.hex }}
                   title={`${c.name} (${c.hex})`}
                 />
@@ -81,12 +81,12 @@ ${c4}`;
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 ml-auto">
             {/* View Tabs */}
-            <div className="flex bg-zinc-100 dark:bg-zinc-900 p-1 rounded-xl text-xs font-semibold">
+            <div className="flex bg-zinc-100 dark:bg-zinc-900 p-1 rounded-xl text-xs font-semibold overflow-x-auto no-scrollbar">
               <button
                 onClick={() => setTab('website')}
-                className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+                className={`px-2.5 md:px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shrink-0 ${
                   tab === 'website'
                     ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm'
                     : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900'
@@ -97,7 +97,7 @@ ${c4}`;
               </button>
               <button
                 onClick={() => setTab('mobile')}
-                className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+                className={`px-2.5 md:px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shrink-0 ${
                   tab === 'mobile'
                     ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm'
                     : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900'
@@ -108,7 +108,7 @@ ${c4}`;
               </button>
               <button
                 onClick={() => setTab('poster')}
-                className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+                className={`px-2.5 md:px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shrink-0 ${
                   tab === 'poster'
                     ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm'
                     : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900'
@@ -119,7 +119,7 @@ ${c4}`;
               </button>
               <button
                 onClick={() => setTab('gradients')}
-                className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+                className={`px-2.5 md:px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shrink-0 ${
                   tab === 'gradients'
                     ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm'
                     : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900'
@@ -132,7 +132,7 @@ ${c4}`;
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors ml-2"
+              className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors ml-1"
             >
               <X className="w-5 h-5" />
             </button>
@@ -140,7 +140,7 @@ ${c4}`;
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-zinc-100 dark:bg-zinc-900 flex justify-center items-start">
+        <div className="flex-1 overflow-y-auto min-h-0 p-4 md:p-8 bg-zinc-100 dark:bg-zinc-900 flex justify-center items-start">
           {tab === 'website' && (
             <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden border border-black/10 flex flex-col text-slate-800">
               {/* Fake Browser Top Bar */}

@@ -10,7 +10,7 @@ import {
   Check,
   Pipette,
   ShieldCheck,
-  Sliders
+  Plus
 } from 'lucide-react';
 import { ColorItem, DisplayFormat } from '../types';
 import {
@@ -24,7 +24,7 @@ import {
 
 interface PaletteColumnProps {
   color: ColorItem;
-  displayHex: string; // The hex to display (may be simulated for color blindness)
+  displayHex: string;
   index: number;
   totalColors: number;
   format: DisplayFormat;
@@ -89,24 +89,36 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
     }
   };
 
+  // Dynamic text size based on number of colors to prevent horizontal clipping
+  const getHexTextSize = () => {
+    if (format !== 'hex') return 'text-xs md:text-sm';
+    if (totalColors <= 5) return 'text-lg md:text-2xl';
+    if (totalColors <= 7) return 'text-base md:text-xl';
+    return 'text-xs md:text-base';
+  };
+
   return (
     <div
-      className="relative flex-1 flex flex-col justify-between items-center transition-colors duration-250 min-h-[480px] md:min-h-full group select-none overflow-hidden"
+      className="relative flex-1 flex flex-col justify-between items-center transition-colors duration-200 min-h-[380px] md:min-h-0 h-full group select-none min-w-0"
       style={{ backgroundColor: displayHex }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Top Action Toolbar */}
+      {/* Top Action Tools: Vertically stacked on narrow columns or adaptive to never clip */}
       <div
-        className={`w-full pt-4 md:pt-6 px-3 flex flex-col items-center gap-2 transition-all duration-200 z-10 ${
-          isHovered ? 'opacity-100 translate-y-0' : 'opacity-80 md:opacity-0 md:-translate-y-2 group-hover:opacity-100 group-hover:translate-y-0'
+        className={`w-full pt-3 md:pt-4 px-1 flex justify-center transition-all duration-200 z-10 ${
+          isHovered
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-70 md:opacity-0 md:-translate-y-2 group-hover:opacity-100 group-hover:translate-y-0'
         }`}
       >
         <div
-          className="flex items-center gap-1.5 p-1 rounded-full backdrop-blur-md shadow-sm border"
+          className={`flex items-center justify-center p-1 rounded-2xl backdrop-blur-md shadow-md border ${
+            totalColors > 6 ? 'flex-col gap-1' : 'flex-wrap sm:flex-nowrap gap-1'
+          }`}
           style={{
-            backgroundColor: isDarkText ? 'rgba(255, 255, 255, 0.55)' : 'rgba(0, 0, 0, 0.35)',
-            borderColor: isDarkText ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.15)',
+            backgroundColor: isDarkText ? 'rgba(255, 255, 255, 0.65)' : 'rgba(0, 0, 0, 0.45)',
+            borderColor: isDarkText ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.18)',
             color: textColor
           }}
         >
@@ -115,22 +127,22 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
             onClick={() => onRemove(color.id)}
             disabled={totalColors <= 2}
             title={totalColors <= 2 ? "Minimum 2 colors" : "Remove color (X)"}
-            className={`p-2 rounded-full transition-transform active:scale-90 ${
+            className={`p-1.5 rounded-lg transition-transform active:scale-90 ${
               totalColors <= 2
-                ? 'opacity-30 cursor-not-allowed'
-                : 'hover:bg-black/10 dark:hover:bg-white/10'
+                ? 'opacity-25 cursor-not-allowed'
+                : 'hover:bg-black/15 dark:hover:bg-white/15'
             }`}
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </button>
 
           {/* View shades ladder */}
           <button
             onClick={() => onOpenShades(color, index)}
             title="View shades & tints"
-            className="p-2 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-transform active:scale-90"
+            className="p-1.5 rounded-lg hover:bg-black/15 dark:hover:bg-white/15 transition-transform active:scale-90"
           >
-            <Grid className="w-4 h-4" />
+            <Grid className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </button>
 
           {/* Move Left */}
@@ -138,11 +150,11 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
             onClick={() => onMove(index, 'left')}
             disabled={index === 0}
             title="Move left"
-            className={`p-2 rounded-full transition-transform active:scale-90 ${
-              index === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-black/10 dark:hover:bg-white/10'
+            className={`p-1.5 rounded-lg transition-transform active:scale-90 ${
+              index === 0 ? 'opacity-25 cursor-not-allowed' : 'hover:bg-black/15 dark:hover:bg-white/15'
             }`}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </button>
 
           {/* Move Right */}
@@ -150,31 +162,31 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
             onClick={() => onMove(index, 'right')}
             disabled={index === totalColors - 1}
             title="Move right"
-            className={`p-2 rounded-full transition-transform active:scale-90 ${
+            className={`p-1.5 rounded-lg transition-transform active:scale-90 ${
               index === totalColors - 1
-                ? 'opacity-30 cursor-not-allowed'
-                : 'hover:bg-black/10 dark:hover:bg-white/10'
+                ? 'opacity-25 cursor-not-allowed'
+                : 'hover:bg-black/15 dark:hover:bg-white/15'
             }`}
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </button>
 
-          {/* Contrast checker quick preview */}
+          {/* Contrast checker preview */}
           <button
             onClick={() => onOpenContrast(color)}
             title={`Contrast against text: ${contrastRatio}:1 (${wcag.badge})`}
-            className="p-2 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-transform active:scale-90 flex items-center gap-1"
+            className="p-1.5 rounded-lg hover:bg-black/15 dark:hover:bg-white/15 transition-transform active:scale-90"
           >
-            <ShieldCheck className="w-4 h-4" />
+            <ShieldCheck className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </button>
 
-          {/* Open Native Color Picker */}
+          {/* Color Picker launcher */}
           <button
             onClick={() => colorInputRef.current?.click()}
             title="Pick custom color"
-            className="p-2 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-transform active:scale-90 relative"
+            className="p-1.5 rounded-lg hover:bg-black/15 dark:hover:bg-white/15 transition-transform active:scale-90 relative"
           >
-            <Pipette className="w-4 h-4" />
+            <Pipette className="w-3.5 h-3.5 md:w-4 md:h-4" />
             <input
               ref={colorInputRef}
               type="color"
@@ -186,14 +198,14 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
         </div>
       </div>
 
-      {/* Lock Button (Iconic Coolors Middle Lock) */}
-      <div className="z-10 flex flex-col items-center my-auto">
+      {/* Lock Button (Iconic Center Lock) */}
+      <div className="z-10 flex flex-col items-center my-auto py-2">
         <button
           onClick={() => onToggleLock(color.id)}
           title={color.locked ? "Unlock color" : "Lock color (stays on spacebar)"}
-          className={`p-3.5 rounded-full backdrop-blur-md transition-all duration-200 transform active:scale-95 shadow-md flex items-center justify-center ${
+          className={`p-3 md:p-3.5 rounded-full backdrop-blur-md transition-all duration-200 transform active:scale-95 shadow-md flex items-center justify-center ${
             color.locked
-              ? 'scale-110 ring-2'
+              ? 'scale-105 ring-2'
               : 'opacity-70 md:opacity-30 group-hover:opacity-100 hover:scale-105'
           }`}
           style={{
@@ -205,14 +217,14 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
           }}
         >
           {color.locked ? (
-            <Lock className="w-5 h-5 stroke-[2.5]" />
+            <Lock className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
           ) : (
-            <Unlock className="w-5 h-5 stroke-[2]" />
+            <Unlock className="w-4 h-4 md:w-5 md:h-5 stroke-[2]" />
           )}
         </button>
         {color.locked && (
           <span
-            className="text-[10px] uppercase font-bold tracking-widest mt-1.5 opacity-80"
+            className="text-[9px] uppercase font-bold tracking-widest mt-1 opacity-85"
             style={{ color: textColor }}
           >
             Locked
@@ -220,28 +232,28 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
         )}
       </div>
 
-      {/* Bottom Color Code & Name Info */}
+      {/* Bottom Color Code & Name Info: fully responsive to avoid overflow */}
       <div
-        className="w-full pb-8 md:pb-12 px-3 flex flex-col items-center text-center z-10"
+        className="w-full pb-6 md:pb-8 px-1.5 flex flex-col items-center text-center z-10 min-w-0"
         style={{ color: textColor }}
       >
         {/* Copied notification bubble */}
         {copied && (
           <div
-            className="mb-2 py-1 px-3 text-xs font-semibold rounded-full shadow-lg flex items-center gap-1.5 animate-bounce"
+            className="mb-1.5 py-0.5 px-2.5 text-[10px] font-bold rounded-full shadow-lg flex items-center gap-1 animate-bounce"
             style={{
               backgroundColor: textColor,
               color: displayHex,
             }}
           >
-            <Check className="w-3.5 h-3.5" />
+            <Check className="w-3 h-3" />
             <span>COPIED!</span>
           </div>
         )}
 
-        {/* Color Value (Hex or other format) */}
+        {/* Color Value */}
         {isEditing ? (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center justify-center max-w-full px-1">
             <input
               type="text"
               value={editValue}
@@ -249,12 +261,12 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
               onBlur={handleHexSubmit}
               onKeyDown={handleKeyDown}
               autoFocus
-              className="w-28 text-center text-lg md:text-xl font-mono font-bold py-1 px-2 rounded bg-black/20 backdrop-blur-sm border border-current outline-none"
+              className="w-24 text-center font-mono font-bold py-1 px-1 rounded bg-black/20 backdrop-blur-sm border border-current outline-none text-sm"
               style={{ color: textColor }}
             />
           </div>
         ) : (
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center max-w-full px-1">
             <button
               onClick={handleCopy}
               onDoubleClick={() => {
@@ -262,39 +274,39 @@ export const PaletteColumn: React.FC<PaletteColumnProps> = ({
                 setIsEditing(true);
               }}
               title="Click to copy, double click to edit"
-              className="group/val flex items-center gap-1.5 font-mono text-xl md:text-2xl font-black tracking-wider uppercase hover:opacity-85 transition-opacity"
+              className={`group/val flex items-center gap-1 font-mono font-black tracking-wide uppercase hover:opacity-80 transition-opacity max-w-full ${getHexTextSize()}`}
             >
-              <span>{format === 'hex' ? displayHex.replace('#', '') : formattedValue}</span>
-              <Copy className="w-3.5 h-3.5 opacity-0 group-hover/val:opacity-80 transition-opacity" />
+              <span className="truncate">{format === 'hex' ? displayHex.replace('#', '') : formattedValue}</span>
+              <Copy className="w-3 h-3 opacity-0 group-hover/val:opacity-80 transition-opacity shrink-0 hidden sm:inline" />
             </button>
           </div>
         )}
 
         {/* Color Name */}
-        <p className="text-xs md:text-sm font-semibold tracking-wide mt-1.5 opacity-85 max-w-[140px] truncate">
+        <p className="text-[11px] md:text-xs font-semibold tracking-tight mt-1 opacity-85 max-w-full px-1 truncate">
           {color.name}
         </p>
 
-        {/* Quick Format & Contrast Mini Badge */}
-        <div className="flex items-center gap-2 mt-2 opacity-70 hover:opacity-100 transition-opacity text-[11px] font-mono">
+        {/* Format & WCAG Badge */}
+        <div className="flex items-center gap-1.5 mt-1 opacity-70 hover:opacity-100 transition-opacity text-[10px] font-mono">
           <span className="uppercase">{format}</span>
           <span>•</span>
-          <span className="font-semibold">{wcag.badge}</span>
+          <span className="font-bold">{wcag.badge}</span>
         </div>
       </div>
 
-      {/* Floating "+" Button Between Columns (Coolors signature hover separator) */}
+      {/* Floating "+" Button Between Columns: clean absolute overlay with no clip */}
       {onInsertAfter && index < totalColors - 1 && (
-        <div
+        <button
           onClick={(e) => {
             e.stopPropagation();
             onInsertAfter(index);
           }}
-          title="Add harmonious color here (+)"
-          className="hidden md:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full items-center justify-center cursor-pointer bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-100 shadow-lg border border-zinc-200 dark:border-zinc-750 opacity-0 hover:opacity-100 hover:scale-110 active:scale-95 transition-all duration-150 group-hover:opacity-40"
+          title="Add color here (+)"
+          className="hidden md:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-40 w-7 h-7 rounded-full items-center justify-center cursor-pointer bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 shadow-xl border border-zinc-300 dark:border-zinc-700 opacity-0 group-hover:opacity-75 hover:!opacity-100 hover:scale-115 active:scale-95 transition-all duration-150"
         >
-          <span className="text-lg font-bold leading-none mb-0.5">+</span>
-        </div>
+          <Plus className="w-4 h-4 stroke-[3]" />
+        </button>
       )}
     </div>
   );
