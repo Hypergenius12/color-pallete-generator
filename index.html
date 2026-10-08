@@ -15,7 +15,31 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      const isDev = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.port === '3000' ||
+                    window.location.hostname.includes('run.app');
+
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.crossOrigin = 'anonymous';
+
+      if (!isDev) {
+        // Production on GitHub Pages or static host
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.crossOrigin = 'anonymous';
+        link.href = './assets/index.css';
+        document.head.appendChild(link);
+
+        script.src = './assets/app.js';
+      } else {
+        // Development environment
+        script.src = '/src/main.tsx';
+      }
+      document.body.appendChild(script);
+    </script>
   </body>
 </html>
 
